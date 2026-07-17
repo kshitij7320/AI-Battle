@@ -43,7 +43,7 @@ const solutionNode: GraphNode<typeof State> = async (state: typeof State)=>{
 }
 
 const judgeNode: GraphNode<typeof State> = async (state: typeof State) => {
-    const {solution_1,solution_2} = state;
+    const { solution_1 , solution_2 } = state;
     const judge = createAgent({
         model: geminiModel,
         tools: [],
@@ -56,12 +56,12 @@ const judgeNode: GraphNode<typeof State> = async (state: typeof State) => {
        messages:[ new HumanMessage(
             `you are a judge tasked with evaluating the quality of two solutions to a problem. the problem is:${state.messages[0].text}. The first solution is:${solution_1} and the second solution is: ${solution_2}. please provide a score between 0 and 10 for each solution, where 0 means the solution is completely incorrect or irrelevent, and 10 means the solutions is perfect and fully adressess the problem.`]
        )
-})
+}
 const result = judgeResponse.structuredResponse
     return {
         judge_recommendation:result
     }
-}
+
 
 const graph = new StateGraph(State)
 .addNode("solution", solutionNode)
